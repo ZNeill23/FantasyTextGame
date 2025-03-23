@@ -3,6 +3,7 @@
 from character import Character
 from scenes.intro import intro_scene
 from world import world_map
+from combat import start_combat
 
 def create_character():
     print("Welcome to the Lands of Eldoria!")
@@ -58,6 +59,15 @@ def explore_world(player):
         room = world_map[current_location]
         print(f"\nLocation: {current_location}")
         print(room["description"])
+
+        if "enemy" in room:
+            enemy = room["enemy"]
+            survived = start_combat(player, enemy)
+            if survived:
+                del room["enemy"]
+            else:
+                print("You failed to escape the battle.")
+                return
 
         print("\nAvailable directions:")
         for direction in room["exits"]:
