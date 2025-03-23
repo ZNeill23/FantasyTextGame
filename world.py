@@ -14,7 +14,8 @@ world_map = {
         "exits": {"south": "Dunwich"},
         "enemy": {
             "name": "Goblin",
-            "hp": 25
+            "hp": 25,
+            "loot": "Rusty Sword"
         }
     }
 }

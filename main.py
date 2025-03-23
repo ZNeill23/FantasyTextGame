@@ -73,7 +73,7 @@ def explore_world(player):
         for direction in room["exits"]:
             print(f" - {direction.title()}")
 
-        command = input("\nWhat do you want to do? (go [direction] / look / quit): ").lower()
+        command = input("\nWhat do you want to do? (go [direction] / look / inventory / quit): ").lower()
 
         if command.startswith("go "):
             direction = command[3:]
@@ -84,6 +84,8 @@ def explore_world(player):
                 print("You can't go that way.")
         elif command == "look":
             print(room["description"])
+        elif command == "inventory":
+            player.view_inventory()
         elif command == "quit":
             print("Thanks for playing!")
             break

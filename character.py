@@ -20,3 +20,11 @@ class Character:
         print(f"HP: {self.hp}")
         print(f"Inventory: {self.inventory}")
         print("========================\n")
+
+    def view_inventory(self):
+        print("\nInventory:")
+        if self.inventory:
+            for item in self.inventory:
+                print(f"- {item}")
+        else:
+            print("You have nothing in your inventory.")

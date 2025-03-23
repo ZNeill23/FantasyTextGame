@@ -34,6 +34,11 @@ def start_combat(player, enemy):
     
     if player.hp > 0:
         print(f"\nYou defeated the {enemy['name']}!")
+
+        if "loot" in enemy:
+            print(f"The {enemy['name']} dropped: {enemy['loot']}")
+            player.inventory.append(enemy['loot'])
+            
         return True
     else:
         print(f"\nYou were slain by the {enemy['name']}...")
