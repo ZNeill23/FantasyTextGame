@@ -12,10 +12,6 @@ world_map = {
     "Forest": {
         "description": "The trees are thick here, and shadows move between them. Danger could be near. The village is to the south.",
         "exits": {"south": "Dunwich"},
-        "enemy": {
-            "name": "Goblin",
-            "hp": 25,
-            "loot": "Rusty Sword"
-        }
+        "enemy_spawn": "goblin"
     }
 }

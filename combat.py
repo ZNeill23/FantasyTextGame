@@ -38,6 +38,9 @@ def start_combat(player, enemy):
         if "loot" in enemy:
             print(f"The {enemy['name']} dropped: {enemy['loot']}")
             player.inventory.append(enemy['loot'])
+
+        if "xp" in enemy:
+            player.gain_xp(enemy['xp'])
             
         return True
     else:
