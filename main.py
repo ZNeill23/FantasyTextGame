@@ -5,6 +5,7 @@ from scenes.intro import intro_scene
 from world import world_map
 from combat import start_combat
 from enemies import get_enemy
+from game_state import state
 
 def create_character():
     print("Welcome to the Lands of Eldoria!")
@@ -63,6 +64,9 @@ def talk_to_npc(room):
     for line in npc["dialogue"]:
         input(f"{npc['name']}: \"{line}\" (press Enter...)")
 
+    if npc['name'] == "Gregor the Grizzled":
+        state["gregor_mentioned_west"] = True
+
 def explore_world(player):
     current_location = "Dunwich"
 
@@ -83,6 +87,11 @@ def explore_world(player):
                 return
 
         print("\nAvailable directions:")
+        if "conditional_exit" in room:
+            for key, exit_data in room["conditional_exit"].items():
+                if state.get(exit_data["requires_flag"]):
+                    room["exits"][exit_data["direction"]] = exit_data["destination"]
+                    
         for direction in room["exits"]:
             print(f" - {direction.title()}")
 
