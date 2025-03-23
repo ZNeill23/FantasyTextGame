@@ -53,6 +53,16 @@ def create_character():
     player = Character(name, char_class, strength, agility, intelligence)
     return player
 
+def talk_to_npc(room):
+    npc = room.get("npc")
+    if not npc:
+        print("There is no one here to talk to.")
+        return
+    
+    print(f"\nYou approach {npc['name']}.")
+    for line in npc["dialogue"]:
+        input(f"{npc['name']}: \"{line}\" (press Enter...)")
+
 def explore_world(player):
     current_location = "Dunwich"
 
@@ -76,7 +86,7 @@ def explore_world(player):
         for direction in room["exits"]:
             print(f" - {direction.title()}")
 
-        command = input("\nWhat do you want to do? (go [direction] / look / inventory / use [item] / quit): ").lower()
+        command = input("\nWhat do you want to do? (go [direction] / look / inventory / use [item] / talk / quit): ").lower()
 
         if command.startswith("go "):
             direction = command[3:]
@@ -92,6 +102,8 @@ def explore_world(player):
         elif command.startswith("use "):
             item = command[4:].strip()
             player.use_item(item)
+        elif command == "talk":
+            talk_to_npc(room)
         elif command == "quit":
             print("Thanks for playing!")
             break
