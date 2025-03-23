@@ -1,7 +1,7 @@
 # character.py
 
 class Character:
-    def __self__(self, name, char_class, strength, agility, intelligence):
+    def __init__(self, name, char_class, strength, agility, intelligence):
         self.name = name
         self.char_class = char_class
         self.strength = strength

@@ -1,18 +1,20 @@
 # main.py
 
 from character import Character
+from scenes.intro import intro_scene
+from world import world_map
 
 def create_character():
     print("Welcome to the Lands of Eldoria!")
-    name = input("What is your character's name?")
+    name = input("What is your character's name? ")
 
     print("\nChoose your class:")
-    print("1. Warrior - Strong and touch")
-    print("2. Rogue - Fast and stealthy")
-    print("3. Mage - Powerful magic user")
+    print("1. Warrior (strong and tough)")
+    print("2. Rogue (fast and stealthy)")
+    print("3. Mage (powerful magic user)")
 
     while True:
-        class_choice = input("Enter class number (1-3):")
+        class_choice = input("Enter class number (1-3): ")
         if class_choice == "1":
             char_class = "Warrior"
             break
@@ -49,12 +51,41 @@ def create_character():
     player = Character(name, char_class, strength, agility, intelligence)
     return player
 
+def explore_world(player):
+    current_location = "Dunwich"
+
+    while True:
+        room = world_map[current_location]
+        print(f"\nLocation: {current_location}")
+        print(room["description"])
+
+        print("\nAvailable directions:")
+        for direction in room["exits"]:
+            print(f" - {direction.title()}")
+
+        command = input("\nWhat do you want to do? (go [direction] / look / quit): ").lower()
+
+        if command.startswith("go "):
+            direction = command[3:]
+            if direction in room["exits"]:
+                current_location = room["exits"][direction]
+                print(f"You walk {direction}...")
+            else:
+                print("You can't go that way.")
+        elif command == "look":
+            print(room["description"])
+        elif command == "quit":
+            print("Thanks for playing!")
+            break
+        else:
+            print("Invalid command.")
+
 def main():
     player = create_character()
     player.display_stats()
-    # This is where the game would begin
-    print("Your adventure begins...\n")
+    intro_scene(player)
+    explore_world(player)
+
 
 if __name__ == "__main__":
     main()
-
