@@ -56,3 +56,23 @@ class Character:
         print(f"\nLEVEL UP! You are now level {self.level}.")
         print("You feel stronger!")
         self.display_stats()
+
+    def use_item(self, item_name):
+        item_name_lower = item_name.lower()
+
+        for item in self.inventory:
+            if item.lower() == item_name_lower:
+                if item == "Healing Potion":
+                    if self.hp == self.max_hp:
+                        print("You are already at full health.")
+                        return
+                    heal_amount = 25
+                    self.hp = min(self.hp + heal_amount, self.max_hp)
+                    self.inventory.remove(item)
+                    print(f"\nYou drink the Healing Potion and restore {heal_amount} HP! Current HP: {self.hp}/{self.max_hp}")
+                    return
+                else:
+                    print(f"You can't use {item}.")
+                    return
+            
+        print(f"You don't have {item_name} in your inventory.")

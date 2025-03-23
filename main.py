@@ -63,16 +63,20 @@ def explore_world(player):
 
         if "enemy_spawn" in room:
             enemy = get_enemy(room["enemy_spawn"])
-            survived = start_combat(player, enemy)
-            if not survived:
-                print("You failed to escape.")
+            result = start_combat(player, enemy)
+
+            if result == "victory":
+                pass
+            elif result == "fled":
+                print("You retreated back to safety.")
+            elif result == "defeated":
                 return
 
         print("\nAvailable directions:")
         for direction in room["exits"]:
             print(f" - {direction.title()}")
 
-        command = input("\nWhat do you want to do? (go [direction] / look / inventory / quit): ").lower()
+        command = input("\nWhat do you want to do? (go [direction] / look / inventory / use [item] / quit): ").lower()
 
         if command.startswith("go "):
             direction = command[3:]
@@ -85,6 +89,9 @@ def explore_world(player):
             print(room["description"])
         elif command == "inventory":
             player.view_inventory()
+        elif command.startswith("use "):
+            item = command[4:].strip()
+            player.use_item(item)
         elif command == "quit":
             print("Thanks for playing!")
             break

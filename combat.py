@@ -20,8 +20,7 @@ def start_combat(player, enemy):
             enemy['hp'] -= damage
             print(f"You strike the {enemy['name']} for {damage} damage!")
         elif action == "2":
-            print("You run away safely!")
-            return False
+            return "fled"
         else:
             print("Invalid action.")
             continue
@@ -39,11 +38,16 @@ def start_combat(player, enemy):
             print(f"The {enemy['name']} dropped: {enemy['loot']}")
             player.inventory.append(enemy['loot'])
 
+        if "extra_loot" in enemy:
+            for item in enemy['extra_loot']:
+                print(f"The {enemy['name']} dropped: {item}")
+                player.inventory.append(item)
+
         if "xp" in enemy:
             player.gain_xp(enemy['xp'])
             
-        return True
+        return "victory"
     else:
         print(f"\nYou were slain by the {enemy['name']}...")
         print("Game over.")
-        exit()
+        return "defeated"

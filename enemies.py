@@ -6,7 +6,8 @@ def get_enemy(enemy_type):
             "name": "Goblin",
             "hp": 20,
             "loot": "Rusty Sword",
-            "xp": 50
+            "xp": 50,
+            "extra_loot": ["Healing Potion"]
         }
     elif enemy_type == "wolf":
         return {
